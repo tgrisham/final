@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-sm-9">
+        <h1><%= @hood[:title] %></h1>
+        <p><%= @hood[:description] %></p>
+
+        <% for rsvp in @rsvps %>
+            <div class="media">
+                <% if rsvp[:going] %>
+                    <i class="fas fa-thumbs-up fa-3x mr-3"></i>
+                <% else %>
+                    <i class="fas fa-thumbs-down fa-3x mr-3"></i>
+                <% end %>
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %>
+
+                        <small>
+                            <!-- only show these links if it's my rsvp -->
+                            <% if @current_user && @current_user[:id] == rsvp[:user_id] %>
+                                (<a href="/rsvps/<%= rsvp[:id] %>/edit">edit</a> | <a href="/rsvps/<%= rsvp[:id] %>/destroy">delete</a>)
+                            <% end %>
+                        </small>
+                    </h5>
+                    <%= rsvp[:comments] %>
+                </div>
+            </div>
+        <% end %>
+        <p class="mt-5">
+            <% if @current_user %>
+                <a href="/hoods/<%= @hood[:id] %>/rsvps/new" class="btn btn-primary">Click here to show interest!</a>
+            <% else %>
+                <a href="/logins/new" class="btn btn-danger">Please sign in to show interest!</a>
+            <% end %>
+        </p>
+    </div>
+    <div class="col-sm-3">
+        <h3>Walkability Score</h3>
+        <p><%= @hood[:walkability] %></p>
+        <h3>Nightlife Score</h3>
+        <p><%= @hood[:nightlife] %></p>
+        <h3>How many interested so far?</h3>
+        <p><%= @going_count %></p>
+    </div>
+</div>

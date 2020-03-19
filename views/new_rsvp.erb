@@ -1,0 +1,17 @@
+<h1>Show interest in <%= @hood[:title] %></h1>
+
+<form action="/hoods/<%= @hood[:id] %>/rsvps/create" method="post">
+  <div class="form-group">
+    <label>Are you interested in living here?</label>
+    <select class="form-control" name="going">
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Comments</label>
+    <textarea class="form-control" rows="3" name="comments"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,5 @@
+<h1>All Neighborhoods</h1>
+
+<% for hood in @hoods %>
+    <p><a href="/hoods/<%= hood[:id] %>"><%= hood[:title] %></a></p>
+<% end %>
