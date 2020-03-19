@@ -190,3 +190,5 @@ get "/hoods/:id/SMS" do
     @trip = trips_table.where(id: params[:id]).to_a[0]
     view "text_signup"
 end
+
+###############
