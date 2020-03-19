@@ -27,6 +27,7 @@ DB.create_table! :users do
   String :name
   String :email
   String :password
+  String :phone
 end
 
 # Insert initial (seed) data

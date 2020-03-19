@@ -1,6 +1,5 @@
 # Set up for the application and database. DO NOT CHANGE. #############################
 require "sinatra"
-require "sinatra/cookies"                                                             #
 require "sinatra/reloader" if development?                                            #
 require "sequel"                                                                      #
 require "logger"                                                                      #
@@ -44,6 +43,10 @@ get "/hoods/:id" do
 
     @rsvps = rsvps_table.where(hood_id: @hood[:id]).to_a
     @going_count = rsvps_table.where(hood_id: @hood[:id], going: true).count
+
+    @results = Geocoder.search(@hood[:location])
+    @lat_long = @results.first.coordinates # => [lat, long]
+    @coordinates = "#{@lat_long[0]} #{@lat_long[1]}"
 
     view "hood"
 end
@@ -170,4 +173,20 @@ get "/logout" do
     # remove encrypted cookie for logged out user
     session["user_id"] = nil
     redirect "/logins/new"
+end
+
+# sign up to get text updates
+get "/hoods/:id/SMS" do
+    puts "params: #{params}"
+
+       account_sid = ENV["TWILIO_ACCOUNT_SID"]
+       auth_token = ENV["TWILIO_AUTH_TOKEN"]
+       client = Twilio::REST::Client.new(account_sid, auth_token)
+       client.messages.create(
+       from: "+14243487854",
+       to: "+14107036254",
+       body: "Thanks for signing up! We'll keep you posted if new neighborhoods get added")
+
+    @trip = trips_table.where(id: params[:id]).to_a[0]
+    view "text_signup"
 end

@@ -32,6 +32,14 @@
                 <a href="/logins/new" class="btn btn-danger">Please sign in to show interest!</a>
             <% end %>
         </p>
+        <h2 class="mt-3">Check it out on the map!</h2>
+      <iframe
+        width="800"
+        height="500"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
+          &q=<%= @coordinates %>&zoom=13" allowfullscreen>
+      </iframe>
     </div>
     <div class="col-sm-3">
         <h3>Walkability Score</h3>

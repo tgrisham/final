@@ -7,8 +7,8 @@ gem 'twilio-ruby'
 gem 'bcrypt'
 gem 'geocoder'
 
-group :development do
-  gem 'sqlite3'
+group :development do 
+ gem 'sqlite3'
 end
 group :production do
   gem 'pg'
